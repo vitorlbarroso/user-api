@@ -19,8 +19,8 @@ Route::get('users', [PeopleController::class, 'index']);
 
 Route::get('user/{id}', [PeopleController::class, 'store']);
 
-Route::post('user', [PeopleCpostroller::class, 'create']);
+Route::post('user', [PeopleController::class, 'create']);
 
-Route::put('user/{id}', [PeopleCpostroller::class, 'update']);
+Route::put('user/{id}', [PeopleController::class, 'update']);
 
-Route::delete('user/{id}', [PeopleCpostroller::class, 'destroy']);
+Route::delete('user/{id}', [PeopleController::class, 'destroy']);
