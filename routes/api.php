@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\PeopleController;
+use App\Http\Controllers\PeopleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('users', [PeopleController::class, 'index']);
+Route::get('/peoples', [PeopleController::class, 'index']);
 
-Route::get('user/{id}', [PeopleController::class, 'store']);
+Route::get('/people/{id}', [PeopleController::class, 'show']);
 
-Route::post('user', [PeopleController::class, 'create']);
+Route::post('/people', [PeopleController::class, 'store']);
 
-Route::put('user/{id}', [PeopleController::class, 'update']);
+Route::put('/people/{id}', [PeopleController::class, 'update']);
 
-Route::delete('user/{id}', [PeopleController::class, 'destroy']);
+Route::delete('/people/{id}', [PeopleController::class, 'destroy']);

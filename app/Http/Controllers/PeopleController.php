@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\People;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class PeopleController extends Controller
 {
@@ -13,7 +16,7 @@ class PeopleController extends Controller
      */
     public function index()
     {
-        //
+        return People::all();
     }
 
     /**
@@ -24,7 +27,32 @@ class PeopleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /* Validando os parâmetros */
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'age' => 'required',
+            'address' => 'required',
+            'address.*.country' => 'required',
+            'address.*.state' => 'required',
+            'address.*.city' => 'required',
+            'email' => 'required|unique:people',
+        ], [
+            'required' => 'The \':attribute\' is a mandatory parameter and must be specified!',
+            'unique' => 'The \':attribute\' is already registered, try another one!',
+        ]);
+
+        /* Verificando se existem erros */
+        if ($validator->fails()) {
+            $error = [
+                'error' => $validator->errors()->first(),
+            ];
+
+            return response()->json($error, 203);
+        }
+
+        /* Criando usuário se não existirem erros */
+        People::create($request->all());
+        return response()->json(['code' => 201], 201);
     }
 
     /**
