@@ -52,7 +52,7 @@ class PeopleController extends Controller
 
         /* Criando usuário se não existirem erros */
         People::create($request->all());
-        return response()->json(['code' => 201], 201);
+        return response()->json(['reponse' => 'created'], 201);
     }
 
     /**
