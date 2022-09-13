@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\PeopleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('users', [PeopleController::class, 'index']);
+
+Route::get('user/{id}', [PeopleController::class, 'store']);
+
+Route::post('user', [PeopleCpostroller::class, 'create']);
+
+Route::put('user/{id}', [PeopleCpostroller::class, 'update']);
+
+Route::delete('user/{id}', [PeopleCpostroller::class, 'destroy']);
