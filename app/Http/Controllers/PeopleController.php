@@ -53,7 +53,7 @@ class PeopleController extends Controller
                 'error' => $validator->errors()->first(),
             ];
 
-            return response()->json($error, 203);
+            return response()->json($error, 400);
         }
 
         /* Criando usuário se não existirem erros */
@@ -87,7 +87,15 @@ class PeopleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $people = People::find($id);
+
+        if (strlen($people) <= 2) {
+            return response()->json(['reponse' => 'Unable to find records!'], 404);
+        }
+
+        $people->update($request->all());
+
+        return $people;
     }
 
     /**
@@ -98,6 +106,12 @@ class PeopleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy = People::destroy($id);
+
+        if ($destroy == 0) {
+            return response()->json(['response' => 'Could not destroy this id!'], 400);
+        }
+
+        return response()->json(['response' => 'ID successfully deleted.'], 200);
     }
 }
