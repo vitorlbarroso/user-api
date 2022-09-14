@@ -16,7 +16,13 @@ class PeopleController extends Controller
      */
     public function index()
     {
-        return People::all();
+        $peoples = People::all();
+
+        if (strlen($peoples) <= 2) {
+            return response()->json(['reponse' => 'Unable to find records!'], 404);
+        }
+
+        return $peoples;
     }
 
     /**
@@ -63,7 +69,13 @@ class PeopleController extends Controller
      */
     public function show($id)
     {
-        //
+        $people = People::find($id);
+
+        if (strlen($people) <= 2) {
+            return response()->json(['reponse' => 'Unable to find records!'], 404);
+        }
+        
+        return $people;
     }
 
     /**
